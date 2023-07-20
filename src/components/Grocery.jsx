@@ -22,30 +22,55 @@
  *   </ul>
  */
 
+import React, { useState } from "react";
+
 function Product(props) {
 	function handlePlus() {
 		// logic to vote a product
+    props.onVote(props.name, 1);
 	}
 
 	function handleMinus() {
 		// logic to unvote a product
+    props.onVote(props.name, -1);
 	}
 
 	return (
 		<li>
-			<span>
-				{/* Product name */} - votes: {/* Number of votes*/}
-			</span>
-			<button onClick={handlePlus}>+</button>
-			<button onClick={handleMinus}>-</button>
+      <div className="grocery-item">
+        <span className="label">{props.name}</span>
+        <span className="votes">
+          <span className="label">votes: </span>
+          <span className="value">{props.votes}</span>
+          <button className="button button--small" onClick={handlePlus}>+</button>
+          <button className="button button--small" onClick={handleMinus}>-</button>
+        </span>
+      </div>
 		</li>
 	);
 }
 
 export function Grocery({ products }) {
+  const [votes, setVotes] = useState({});
+
+  function onVote(name, value) {
+		setVotes((prevVotes) => ({
+			...prevVotes,
+			[name]: (prevVotes[name] || 0) + value // increment or decrement the votes for the given product name
+		}));
+	}
+
 	return (
-		<ul>
+		<ul className="grocery-list">
 			{/* Render an array of products, which should call onVote when + or - is clicked */}
+      {products.map((product) => (
+				<Product
+					key={product.name}
+					name={product.name}
+					votes={votes[product.name] || 0} // get the votes from the state or default to 0
+					onVote={onVote} // pass the onVote function as a prop
+				/>
+			))}
 		</ul>
 	);
 }

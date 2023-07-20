@@ -2,17 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -28,11 +17,164 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.items-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.item {
+  /* min-width: 25%; */
+  flex: 1 1 auto;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin: 10px;
+  padding: 15px;
+  min-height: 300px;
+}
+
+.item--gallery {
+  /* flex: 1 0 98%; */
+  .gallery {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    .image {
+      position: relative;
+      margin: 10px;
+      .remove {
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+        background-color: rgb(255, 255, 255);
+        border: 1px solid rgb(176, 170, 170);
+        color: rgb(176, 170, 170);
+        width: 25px;
+        height: 25px;
+        border-radius: 4px;
+      }
+      .remove:hover,
+      .remove:active {
+        color: red;
+      }
+    }
   }
-  to {
-    transform: rotate(360deg);
+}
+
+.item--list {
+
+}
+
+.item--list li {
+  transition: all 0.1s ease-in;
+}
+
+.item--list li:focus {
+  outline: none;
+  color: #9158b0;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+img {
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+span.active {
+  color: red;
+}
+
+#rating span {
+  padding-right: 4px;
+  cursor: pointer;
+  font-size: 33px;
+}
+
+.grocery-list {
+  .grocery-item {
+    margin-bottom: 10px;
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between
+  }
+  .votes {
+    flex: 1 0 auto;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .value {
+    min-width: 50px;
+  }
+}
+
+.button {
+  appearance: none;
+  background-color: #9158b0;
+  border: 1px solid rgba(27, 31, 35, .15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.button--small {
+  padding: 0;
+  margin: 0 5px;
+  line-height: 1;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  font-size: 14px;
+}
+
+.button:hover {
+  background-color: #7f4d9a;
+}
+
+.button:focus {
+  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  outline: none;
+}
+
+.button:active {
+  background-color: #72458a;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+}
+
+.button-group {
+  display: grid;
+  min-height: 88px;
+  grid-template-columns: 1fr 1fr;
+  .button {
+    margin: 5px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .button-group {
+    grid-template-columns: 1fr;
   }
 }

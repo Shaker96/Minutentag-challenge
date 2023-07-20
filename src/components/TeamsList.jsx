@@ -68,30 +68,48 @@ const TEAMS = [
 export function TeamsList() {
 	const [teams, setTeams] = useState(TEAMS);
 
+  const getTotalScore = (team) => {
+    return team.games.reduce((sum, game) => sum + game.score, 0);
+  };
+
 	// Order teams by score (highest to lowest)
 	function orderTeamByScoreHighestToLowest() {
-		// Write your code here
+    const sortedTeams = [...teams].sort(
+      (a, b) => getTotalScore(b) - getTotalScore(a)
+    );
+    setTeams(sortedTeams);
 	}
 
 	// Order teams by score (lowest to highest)
 	function orderTeamByScoreLowestToHighest() {
-		// Write your code here
+    const sortedTeams = [...teams].sort(
+      (a, b) => getTotalScore(a) - getTotalScore(b)
+    );
+    setTeams(sortedTeams);
 	}
 
 	// Filtering teams that with at least 3 players
 	function teamsWithMoreThanThreePlayers() {
-		// Write your code here
+		const filteredTeams = teams.filter((team) => team.players.length >= 3);
+    setTeams(filteredTeams);
 	}
 
 	return (
 		<div>
-			<button onClick={() => setTeams(TEAMS)}>Initial list</button>
+      <div className="button-group">
+        <button className="button" onClick={() => setTeams(TEAMS)}>Initial list</button>
+        <button className="button" onClick={orderTeamByScoreHighestToLowest}>Highest to Lowest</button>
+        <button className="button" onClick={orderTeamByScoreLowestToHighest}>Lowest to Highest</button>
+        <button className="button" onClick={teamsWithMoreThanThreePlayers}>Teams with at least 3 players</button>
+      </div>
 
-			<button>Highest to Lowest</button>
-			<button>Lowest to Highest</button>
-			<button>Teams with at least 3 players</button>
-
-			<ul className="teams">{/** Render the list of teams */}</ul>
+			<ul className="teams">
+        {teams.map((team) => (
+          <li key={team.name}>
+            {team.name} / No. of Players: {team.players.length} / Total Score: {getTotalScore(team)}
+          </li>
+        ))}
+      </ul>
 		</div>
 	);
 }

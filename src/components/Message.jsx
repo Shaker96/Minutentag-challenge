@@ -10,11 +10,19 @@
  * - Finish the Message component by implementing this logic.
  */
 
+import { useState } from "react";
+
 export function Message() {
+  const [renderParagraph, setRenderParagraph] = useState(false);
+
+  function handleClick() {
+    setRenderParagraph(!renderParagraph);
+  }
+
 	return (
-		<>
-			<a href="#">Want to buy a new car?</a>
-			<p>Call +11 22 33 44 now!</p>
-		</>
+		<div>
+			<a href="#" onClick={handleClick}>Want to buy a new car?</a>
+			{renderParagraph && <p>Call +11 22 33 44 now!</p>}
+		</div>
 	);
 }

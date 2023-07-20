@@ -7,7 +7,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  /* background: #5614B0;
+  background: -webkit-linear-gradient(to right, #DBD65C, #5614B0);
+  background: linear-gradient(to right, #DBD65C, #5614B0); */
+  background-color: #21D4FD;
+  background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+* {
+  box-sizing: border-box;
 }

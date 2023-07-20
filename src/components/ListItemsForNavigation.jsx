@@ -15,34 +15,48 @@ import { useEffect, useRef, useState } from "react";
 // Simulating a list of items to render.
 // This can be passed through props as well. The constant is declared here for convenience
 const itemsList = Array(10).fill({
-	/** Add the properties you consider, there are no specific requirements related to what you have to render. Be creative :) */
+  name: "Item",
 });
 
-export function ListItemsForNavigation(props) {
-	const [
-		selectedIndex,
-		setSelectedIndex,
-	] = useState(/** Initialize the state as you need */);
+export function ListItemsForNavigation() {
+  const [selectedIndex, setSelectedIndex] = useState(0); // Initialize the state with the first index
 	const activeItemRef = useRef();
 
 	useEffect(
 		function () {
 			// Focus the item using this effect
+      if (activeItemRef.current) {
+				activeItemRef.current.focus();
+			}
 		},
-		[
-			/* Use accordingly the dependencies */
-		]
+		[selectedIndex]
 	);
 
 	function handleKeyDown(event) {
 		// Add the proper logic to calculate the index that correspond to the item that should be focused.
+    event.preventDefault();
+    const { key } = event;
+		const length = itemsList.length;
+		if (key === "ArrowUp" || key === "ArrowRight") {
+			// Increment the index and wrap around if needed
+			setSelectedIndex((selectedIndex + 1) % length);
+		} else if (key === "ArrowDown" || key === "ArrowLeft") {
+			// Decrement the index and wrap around if needed
+			setSelectedIndex((selectedIndex - 1 + length) % length);
+		}
 	}
 
 	return (
 		<ul onKeyDown={handleKeyDown}>
-			{/** Render itemsList as you wish, probably you want to render <li></li> with the proper attributes */}
-			{/** If you have issues focusing an element, it is probably because the element is not focusable originally. Try with tabIndex={0} */}
-			{/** Do not forget to pass the reference to the selected item */}
+			{itemsList.map((item, i) => (
+				<li
+					key={i}
+					tabIndex={0} // Make the element focusable
+					ref={i === selectedIndex ? activeItemRef : null} // Pass the reference to the selected item
+				>
+					{item.name} {i + 1}
+				</li>
+			))}
 		</ul>
 	);
 }
